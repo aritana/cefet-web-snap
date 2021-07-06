@@ -18,12 +18,8 @@ for (let marcacaoEl of tagMarcacao) {
 
     });
     marcacaoEl.addEventListener('mousemove', function(e) {
-        console.log('teste');
         balaozinhoEl.style.left = `${e.pageX}px`;
         balaozinhoEl.style.top = `${e.pageY}px`;
-
-        console.log(balaozinhoEl.style.top);
-        console.log(balaozinhoEl.style.left);
 
     });
 
