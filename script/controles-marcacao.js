@@ -26,7 +26,9 @@ let corEl = document.querySelector('#cor-da-marcacao');
 
 //exercicio 02
 let marcacaoSelecionada;
+
 for (let marcacaoControlesEl of marcacaoControles) {
+    console.log(marcacaoControlesEl.classList);
     marcacaoControlesEl.addEventListener('click', function(e) {
 
         //remover selecionada das demais
@@ -53,16 +55,12 @@ for (let marcacaoControlesEl of marcacaoControles) {
             }
         }
         //titulo conteudo e cor
+
         tituloEl.value = el.dataset.titulo;
         conteudoEl.value = el.dataset.conteudo;
         corEl.value = el.dataset.cor;
         //formato
-        let formato = 'formato-oval';
-        if (marcacaoControlesEl.classList.contains('formato-retangular')) {
-            formato = 'formato-retangular';
-        }
-
-
+        let formato = el.dataset.formato;
         let formatoMarcacaoEl = document.querySelector(`[value="${formato}"]`);
         formatoMarcacaoEl.checked = true;
         marcacaoSelecionada = el;
@@ -119,19 +117,20 @@ for (let controleRadioEl of controleRadio) {
 
 
 function formataCaixaForma() {
-
+    if (marcacaoSelecionada === undefined) return;
     let radioEl = document.querySelector(`[name="formato-da-marcacao"]:checked`);
     marcacaoSelecionada.classList.toggle(`${radioEl.value}`, true); //sempre insere
 
     if (radioEl.value === 'formato-retangular') {
         marcacaoSelecionada.classList.toggle('formato-retangular', true); //sempre insere
         marcacaoSelecionada.classList.remove('formato-oval');
+        marcacaoSelecionada.dataset.formato = 'formato-retangular';
 
     }
     if (radioEl.value === 'formato-oval') {
         marcacaoSelecionada.classList.toggle('formato-oval', true);
         marcacaoSelecionada.classList.remove('formato-retangular');
+        marcacaoSelecionada.dataset.formato = 'formato-oval';
 
     }
-    console.log(marcacaoSelecionada.classList);
 }
