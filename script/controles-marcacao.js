@@ -28,7 +28,12 @@ let corEl = document.querySelector('#cor-da-marcacao');
 
 for (let marcacaoControlesEl of marcacaoControles) {
     marcacaoControlesEl.addEventListener('click', function(e) {
-        marcacaoControlesEl.classList.add('selecionada');;
+
+        //remover selecionada das demais
+        for (let marcacaoControlesSelecionadaEl of marcacaoControles) {
+            marcacaoControlesSelecionadaEl.classList.remove('selecionada');
+        }
+        marcacaoControlesEl.classList.add('selecionada'); //colocar selecionada 
         let el = e.currentTarget;
         for (let i = 0; i < controlePosicao.length; i++) {
 
@@ -59,7 +64,6 @@ for (let marcacaoControlesEl of marcacaoControles) {
 
         let formatoMarcacaoEl = document.querySelector(`[value="${formato}"]`);
         formatoMarcacaoEl.checked = true;
-        console.log(formatoMarcacaoEl);
 
     });
 
