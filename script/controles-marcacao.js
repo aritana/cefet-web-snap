@@ -24,8 +24,8 @@ let conteudoEl = document.querySelector('#conteudo-da-marcacao');
 let corEl = document.querySelector('#cor-da-marcacao');
 
 
-
-
+//exercicio 02
+let marcacaoSelecionada;
 for (let marcacaoControlesEl of marcacaoControles) {
     marcacaoControlesEl.addEventListener('click', function(e) {
 
@@ -33,6 +33,7 @@ for (let marcacaoControlesEl of marcacaoControles) {
         for (let marcacaoControlesSelecionadaEl of marcacaoControles) {
             marcacaoControlesSelecionadaEl.classList.remove('selecionada');
         }
+
         marcacaoControlesEl.classList.add('selecionada'); //colocar selecionada 
         let el = e.currentTarget;
         for (let i = 0; i < controlePosicao.length; i++) {
@@ -64,8 +65,73 @@ for (let marcacaoControlesEl of marcacaoControles) {
 
         let formatoMarcacaoEl = document.querySelector(`[value="${formato}"]`);
         formatoMarcacaoEl.checked = true;
+        marcacaoSelecionada = el;
 
     });
+}
 
 
+
+//exercicio 03
+
+let controleInputs = document.querySelectorAll(`[id$=da-marcacao]`);
+for (let controleInputsEl of controleInputs) {
+    controleInputsEl.addEventListener('change', formataCaixa);
+}
+
+function formataCaixa() {
+
+    if (marcacaoSelecionada === undefined) return;
+    for (let i = 0; i < controleInputs.length; i++) { //percorre os inputs
+
+        let controlePosicaoEl = controleInputs[i];
+        if (controlePosicaoEl.id === 'x-da-marcacao') {
+            marcacaoSelecionada.style.left = `${controlePosicaoEl.value}px`;
+        }
+        if (controlePosicaoEl.id === 'y-da-marcacao') {
+            marcacaoSelecionada.style.top = `${controlePosicaoEl.value}px`;
+        }
+        if (controlePosicaoEl.id === 'largura-da-marcacao') {
+            marcacaoSelecionada.style.width = `${controlePosicaoEl.value}px`;
+        }
+        if (controlePosicaoEl.id === 'altura-da-marcacao') {
+            marcacaoSelecionada.style.height = `${controlePosicaoEl.value}px`;
+        }
+        if (controlePosicaoEl.id === 'titulo-da-marcacao') {
+            marcacaoSelecionada.dataset.titulo = `${controlePosicaoEl.value}`;
+        }
+        if (controlePosicaoEl.id === 'conteudo-da-marcacao') {
+            marcacaoSelecionada.dataset.conteudo = `${controlePosicaoEl.value}`;
+        }
+        if (controlePosicaoEl.id === 'cor-da-marcacao') {
+            marcacaoSelecionada.dataset.cor = `${controlePosicaoEl.value}`;
+        }
+
+    }
+
+}
+
+let controleRadio = document.querySelectorAll(`[name="formato-da-marcacao"]`);
+
+for (let controleRadioEl of controleRadio) {
+    controleRadioEl.addEventListener('click', formataCaixaForma);
+}
+
+
+function formataCaixaForma() {
+
+    let radioEl = document.querySelector(`[name="formato-da-marcacao"]:checked`);
+    marcacaoSelecionada.classList.toggle(`${radioEl.value}`, true); //sempre insere
+
+    if (radioEl.value === 'formato-retangular') {
+        marcacaoSelecionada.classList.toggle('formato-retangular', true); //sempre insere
+        marcacaoSelecionada.classList.remove('formato-oval');
+
+    }
+    if (radioEl.value === 'formato-oval') {
+        marcacaoSelecionada.classList.toggle('formato-oval', true);
+        marcacaoSelecionada.classList.remove('formato-retangular');
+
+    }
+    console.log(marcacaoSelecionada.classList);
 }
